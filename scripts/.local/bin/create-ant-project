@@ -1,0 +1,145 @@
+#!/bin/bash
+
+# Check if the project name argument is provided
+if [ -z "$1" ]; then
+    echo "Usage: ./create_project.sh <project_name>"
+    exit 1
+fi
+
+# Use the first command-line argument ($1) for the project directory name
+PROJECT_DIR="$1"
+SRC_DIR="$PROJECT_DIR/src/example"
+BUILD_DIR="$PROJECT_DIR/build"
+JAVA_FILE="$SRC_DIR/HelloWorld.java"
+BUILD_FILE="$PROJECT_DIR/build.xml"
+CLASSPATH_FILE="$PROJECT_DIR/.classpath"
+PROJECT_FILE="$PROJECT_DIR/.project"
+MAIN_CLASS="example.HelloWorld"
+JAVA_VER="$(java --version | head -1 | cut -d ' ' -f2 | sed 's/\..*//g')"
+ANT_PROJECT_NAME="$1"
+
+echo "Setting up Ant project: $ANT_PROJECT_NAME"
+
+# 1. Create directory structure
+mkdir -p "$SRC_DIR" "$BUILD_DIR/classes" "$BUILD_DIR/jar"
+
+# 2. Create the Java source file
+cat <<EOF > "$JAVA_FILE"
+package example;
+
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello World from $ANT_PROJECT_NAME!");
+    }
+}
+EOF
+
+echo "Created Java source file: $JAVA_FILE"
+
+# 3. Create the build.xml configuration file dynamically
+cat <<EOF > "$BUILD_FILE"
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="$ANT_PROJECT_NAME" default="run" basedir=".">
+    <!-- Define path properties -->
+    <property name="src.dir"     location="src"/>
+    <property name="build.dir"   location="build"/>
+    <property name="classes.dir" location="\${build.dir}/classes"/>
+    <property name="jar.dir"     location="\${build.dir}/jar"/>
+    <property name="main-class"  value="$MAIN_CLASS"/>
+    <property name="jar.name"    value="\${ant.project.name}.jar"/>
+
+    <!-- JavaC target / source -->
+    <property name="javac.source" value="$JAVA_VER"/>
+    <property name="javac.target" value="$JAVA_VER"/>
+
+    <!-- Target: Clean up previous builds -->
+    <target name="clean">
+        <delete dir="\${build.dir}"/>
+        <echo message="Cleaned previous build directories."/>
+    </target>
+
+    <!-- Target: Initialize directories -->
+    <target name="init" depends="clean">
+        <mkdir dir="\${build.dir}"/>
+        <mkdir dir="\${classes.dir}"/>
+        <mkdir dir="\${jar.dir}"/>
+        <echo message="Initialized build directories."/>
+    </target>
+
+    <!-- Target: Compile source code -->
+    <target name="compile" depends="init" description="Compile Java sources">
+        <javac srcdir="\${src.dir}" destdir="\${classes.dir}" source="\${javac.source}" target="\${javac.target}" includeantruntime="false"/>
+        <echo message="Compilation complete."/>
+    </target>
+
+    <!-- Target: Create the JAR file -->
+    <target name="jar" depends="compile" description="Create JAR archive">
+        <jar destfile="\${jar.dir}/\${ant.project.name}.jar" basedir="\${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="\${main-class}"/>
+            </manifest>
+        </jar>
+        <echo message="JAR file created: \${jar.dir}/\${ant.project.name}.jar"/>
+    </target>
+
+    <!-- Target: BUILD ONLY (Alias for JAR creation) -->
+    <target name="build" depends="jar" description="Builds the entire project (compile and jar)."/>
+
+    <!-- Target: RUN ONLY (Runs assuming the JAR exists) -->
+    <target name="run" description="Run the application if JAR exists">
+        <java jar="\${jar.dir}/\${jar.name}" fork="true"/>
+    </target>
+    
+    <!-- Target Default: Build then run -->
+    <target name="build-and-run" depends="build, run" description="Builds and then runs the application."/>
+
+</project>
+EOF
+echo "Created build.xml file: $BUILD_FILE"
+
+# 4. Create the .classpath configuration file.
+cat <<EOF > "$CLASSPATH_FILE"
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="src"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="output" path="build/classes"/>
+</classpath>
+EOF
+echo "Created .classpath file: $CLASSPATH_FILE"
+
+# 5. Create the .project configuration file dynamically
+cat <<EOF > "$PROJECT_FILE"
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>$ANT_PROJECT_NAME</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<filteredResources>
+		<filter>
+            <id>$(date +%Y%m%d%H%M%S)</id>
+			<name></name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.core.resources.regexFilterMatcher</id>
+				<arguments>node_modules|\\.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
+</projectDescription>
+EOF
+echo "Created .project file: $PROJECT_FILE"
+
+echo "Project setup complete in directory: $PROJECT_DIR"
+echo "To run the project, navigate to $PROJECT_DIR and type 'ant'"

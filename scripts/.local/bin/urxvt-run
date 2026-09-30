@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Cek apakah urxvtd sedang berjalan
+if ! pgrep -x "urxvtd" > /dev/null; then
+    # Jika tidak ada, jalankan daemon di background
+    # -q: quiet, -f: fork to background, -o: check display
+    urxvtd -q -f -o
+fi
+
+# Jalankan client
+urxvtc "$@"

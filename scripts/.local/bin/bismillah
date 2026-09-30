@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+quotes=(
+  "Bersama kesulitan ada kemudahan. (94:5) - Be Productive!"
+  "Jangan iri atas karunia orang lain. (4:32) - Syukuri hardware-mu."
+  "Ya Tuhanku, tambahkanlah ilmu kepadaku. (20:114) - Terus belajar!"
+  "Hamba Allah itu rendah hati. (25:63) - Low spec, high impact."
+  "Bertawakallah kepada Yang Maha Perkasa. (26:217) - Jangan lupa ibadah."
+  "Jika sudah bertekad, bertawakallah. (3:159) - Gaspol! (Urrahhh)."
+  "Kami mudahkan Al-Qur'an untuk pelajaran. (54:17) - Keep it simple."
+  "Beruntunglah orang yang khusyuk. (23:1-2) - Fokus adalah kunci."
+  "Allah tak membebani di luar batas. (2:286) - Optimalkan yang ada."
+  "Allah sebaik-baik pemberi rezeki. (34:15) - Karya > Clock speed."
+)
+
+total=${#quotes[@]}
+random_index=$((RANDOM % total))
+
+echo -e "\e[1;32m✨ Bismillah! ✨\e[0m"
+echo -e "\e[3;36m\"${quotes[$random_index]}\"\e[0m\n"

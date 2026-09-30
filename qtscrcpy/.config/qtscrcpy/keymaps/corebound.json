@@ -1,0 +1,47 @@
+{
+  "switchKey": "Key_QuoteLeft",
+  "keyMapNodes": [
+    {
+      "comment": "",
+      "type": "KMT_CLICK",
+      "pos": {
+        "x": 0.1237,
+        "y": 0.7935
+      },
+      "key": "Key_A",
+      "switchMap": false
+    },
+    {
+      "comment": "",
+      "type": "KMT_CLICK",
+      "pos": {
+        "x": 0.2454,
+        "y": 0.7914
+      },
+      "key": "Key_D",
+      "switchMap": false
+    },
+    {
+      "comment": "",
+      "type": "KMT_CLICK",
+      "pos": {
+        "x": 0.8265,
+        "y": 0.6536
+      },
+      "key": "Key_K",
+      "switchMap": false
+    },
+    {
+      "comment": "",
+      "type": "KMT_CLICK",
+      "pos": {
+        "x": 0.9604,
+        "y": 0.0793
+      },
+      "key": "Key_Escape",
+      "switchMap": false
+    }
+  ],
+  "width": 677,
+  "height": 324
+}

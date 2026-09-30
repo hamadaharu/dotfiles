@@ -1,0 +1,5 @@
+! My Beloved Keyboard 
+keycode 94 = ISO_Level5_Shift
+
+! My Demonic Keyboard
+keycode 127 = ISO_Level5_Shift

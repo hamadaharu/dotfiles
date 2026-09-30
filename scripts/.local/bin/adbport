@@ -1,0 +1,7 @@
+#!/bin/bash
+# Mengambil IP PC (asumsi interface Wi-Fi)
+IP=$(ip -f inet addr show wlp2s0 | grep "inet" | awk '{print $2}' | cut -d '/' -f1)
+PORT=$1
+
+echo "Mengirim URL http://$IP:$PORT ke android..."
+adb shell am start -a android.intent.action.VIEW -d "http://$IP:$PORT"

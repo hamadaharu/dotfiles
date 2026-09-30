@@ -1,0 +1,2 @@
+#! /bin/sh
+feh $(ls ~/.wine/drive_c/users/zan/AppData/Roaming/StardewValley/Screenshots/* -d -t | head -1)

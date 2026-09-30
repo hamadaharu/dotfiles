@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [[ -z $2  ]]; then
+    echo "Usage:"
+    echo "kdemaim {options} {device ID}"
+    echo 
+    echo "available options:"
+    echo "-d : entire display"
+    echo "-s : select area"
+    echo "-w : window area"
+    echo 
+    echo "device ID is required!"
+    exit 1
+fi
+
+case "$1" in
+    -d) 
+        maim -u ~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H%M%S")_maim.png
+        kdeconnect-cli --share $(ls ~/Pictures/Screenshots/* -t -d | head -1) -d $2
+        notify-send "screenshot has been taken and shared"
+        ;;
+    -s) 
+        maim -s -u ~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H%M%S")_maim.png 
+        kdeconnect-cli --share $(ls ~/Pictures/Screenshots/* -t -d | head -1) -d $2
+        notify-send "screenshot has been taken and shared"
+        ;;
+    -w) 
+        maim -i $(xdotool getactivewindow) -u ~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H%M%S")_maim.png 
+        kdeconnect-cli --share $(ls ~/Pictures/Screenshots/* -t -d | head -1) -d $2
+        notify-send "screenshot has been taken and shared"
+        ;;
+    *) 
+        echo "Usage:"
+        echo "kdemaim {options} {device ID}"
+        echo 
+        echo "available options:"
+        echo "-d : entire display"
+        echo "-s : select area"
+        echo "-w : window area"
+        echo 
+        echo "options invalid!"
+        exit 1
+        ;;
+esac
+

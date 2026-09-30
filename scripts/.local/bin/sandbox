@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Cek apakah argumen folder sudah diberikan
+if [ -z "$1" ]; then
+    echo "Penggunaan: $0 <nama_folder_sandbox> <perintah_aplikasi>"
+    echo "Contoh: $0 akun_kerja google-chrome"
+    exit 1
+fi
+
+# Tentukan path sandbox (akan dibuat di dalam ~/Sandbox/...)
+SANDBOX_DIR="$1"
+
+# Buat folder jika belum ada
+mkdir -p "$SANDBOX_DIR/config"
+mkdir -p "$SANDBOX_DIR/cache"
+mkdir -p "$SANDBOX_DIR/share"
+
+# Set environment variables ke folder sandbox tersebut
+export XDG_CONFIG_HOME="$SANDBOX_DIR/config"
+export XDG_CACHE_HOME="$SANDBOX_DIR/cache"
+export XDG_DATA_HOME="$SANDBOX_DIR/share"
+
+# Menjalankan aplikasi (argumen kedua dan seterusnya)
+shift # Hapus argumen pertama (nama folder) dari daftar
+echo "Menjalankan aplikasi di sandbox: $SANDBOX_DIR"
+exec "$@"

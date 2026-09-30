@@ -1,0 +1,52 @@
+
+!black
+*color0: #000000
+
+!red
+*color1: #FF3030
+
+!green
+*color2: #559A70
+
+!yellow
+*color3: #CCAC00
+
+!blue
+*color4: #0099CC
+
+!magenta
+*color5: #CC69C8
+
+!cyan
+*color6: #7AC4CC
+
+!white
+*color7: #BCCCCC
+
+!gray
+*color8: #000000
+
+!light-red
+*color9: #FF3030
+
+!light-green
+*color10: #559A70
+
+!light-yellow
+*color11: #CCAC00
+
+!light-blue
+*color12: #0099CC
+
+!light-magenta
+*color13: #CC69C8
+
+!light-cyan
+*color14: #7AC4CC
+
+!light-white
+*color15: #BCCCCC
+
+*background: #000000
+*foreground: #AFC2C2
+*cursorColor: #AFC2C2

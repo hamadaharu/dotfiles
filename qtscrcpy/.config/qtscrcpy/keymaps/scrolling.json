@@ -1,0 +1,16 @@
+{
+  "switchKey": "Key_QuoteLeft",
+  "mouseMoveMap": {
+    "comment": "",
+    "type": "KMT_MOUSE_MOVE",
+    "startPos": {
+      "x": 0.499,
+      "y": 0.463
+    },
+    "speedRatioX": 1,
+    "speedRatioY": 1
+  },
+  "keyMapNodes": [],
+  "width": 318,
+  "height": 672
+}

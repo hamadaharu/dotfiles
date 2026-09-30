@@ -1,0 +1,35 @@
+!!*background:                      #222D31
+*background:                      #232529
+*foreground:                      #d8d8d8
+*fading:                          8
+*fadeColor:                       black
+*cursorColor:                     #ffffff
+*pointerColorBackground:          #2B2C2B
+*pointerColorForeground:          #16A085
+
+! persona colours
+!! black dark/light
+*color0:                          #222D31
+*color8:                          #585858
+!! red dark/light
+*color1:                          #ab4642
+*color9:                          #ab4642
+!! green dark/light
+*color2:                          #59a559
+*color10:                         #6cb06c
+!! yellow dark/light
+*color3:                          #f7ca88
+*color11:                         #f7ca88
+!! blue dark/light
+!!*color12:                         #2b96b4
+*color4:                          #44889b
+*color12:                         #44889b
+!! magenta dark/light
+*color5:                          #ba8baf
+*color13:                         #ba8baf
+!! cyan dark/light
+*color6:                          #1ABB9B
+*color14:                         #1ABB9B
+!! white dark/light
+*color7:                          #d8d8d8
+*color15:                         #f8f8f8

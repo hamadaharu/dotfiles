@@ -1,0 +1,52 @@
+
+!black
+*color0: #353b52
+
+!red
+*color1: #d06178
+
+!green
+*color2: #b4c4b4
+
+!yellow
+*color3: #cfcfbf
+
+!blue
+*color4: #959dcb
+
+!magenta
+*color5: #b9a3eb
+
+!cyan
+*color6: #89bbdd
+
+!white
+*color7: #ffffff
+
+!gray
+*color8: #8796b0
+
+!light-red
+*color9: #e61f44
+
+!light-green
+*color10: #acfab4
+
+!light-yellow
+*color11: #dfdf9f
+
+!light-blue
+*color12: #b8bcf3
+
+!light-magenta
+*color13: #b9a3eb
+
+!light-cyan
+*color14: #89ddff
+
+!light-white
+*color15: #ffffff
+
+*background: #1b1e2b
+*foreground: #676e96
+*cursorColor: #676e96

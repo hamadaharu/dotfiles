@@ -1,0 +1,123 @@
+# #######################
+# wm independent hotkeys
+# #######################
+
+# terminal emulator
+# super + Return
+#     kitty --single-instance
+    # urxvt-run
+
+# program launcher
+super + d
+	rofi -show drun
+
+# center window
+mod3 + k 
+    center-window
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# #######################
+# RedShift (Eye Saver)
+# #######################
+super + r; {1-6}
+	redshift -x && redshift -O {1-6}000
+super + r; x
+	redshift -x 
+
+# #######################
+# Screen Shot key
+# #######################
+Print 
+    maim -u ~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H%M%S")_maim.png && \
+    notify-send "screenshot has been taken"
+
+ctrl + Print 
+    maim -u | xclip -selection clipboard -t image/png && \
+    notify-send "screenshot has been copied to clipboard"
+
+super + {_,ctrl} + Print
+    { \
+        maim -i $(xdotool getactivewindow) -u \ 
+        ~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H%M%S")_maim.png && \
+        notify-send "screenshot has been taken", \
+
+        maim -i $(xdotool getactivewindow) -u | \
+        xclip -selection clipboard -t image/png && \ 
+        notify-send "screenshot has been copied to clipboard" \
+    }
+
+shift + {_,ctrl} + Print
+    { \
+        maim -s -u ~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H%M%S")_maim.png && \
+        notify-send "screenshot has been taken", \
+
+        maim -s -u | xclip -selection clipboard -t image/png && \
+        notify-send "screenshot has been copied to clipboard" \
+    }
+
+# #######################
+# Picom Controller
+# #######################
+super + {shift,alt} + t
+	{pkill picom, picom -b}
+
+# #######################
+# Battery
+# #######################
+super + underscore
+    xset dpms force off
+    
+super + equal
+    xset -dpms && xautolock -disable && notify-send 'Presentation Mode On'
+
+super + minus
+    xset dpms && xautolock -enable && notify-send 'Presentation Mode Off'
+
+# #######################
+# My Script
+# #######################
+# Toggle Mouse Hold Click
+# alt + <
+#     mouse-toggle.sh
+
+# Type ShortCut
+mod3 + n;{i,n,o,a}
+    xdotool type "{240511053,Muhammad Rozaan,085797652448,083142031449}"
+
+mod3 + c;c
+    xdotool type "Universitas Muhammadiyah Cirebon"
+
+mod3 + e;{m,n}
+    xdotool type "{muhammadrozaan@gmail.com,Muhammad Rozaan}"
+
+# Move to cursor dzen
+mod3 + s
+    eval $(xdotool getmouselocation --shell); xdotool search --name "dzen_stopwatch" windowmove $X $Y
+
+super + shift + s
+    eval $(xdotool getmouselocation --shell); xdotool search --name "dzen_stopwatch" windowmove $X $Y
+
+# #######################
+# Keyboard fix 
+# #######################
+
+# right_alt + {h,j,k,l}
+#     xdotool key {Left,Down,Up,Right}
+
+# ######################
+# Power button
+# ######################
+XF86Launch1
+    dpm suspend
+
+XF86PowerOff;XF86Launch1
+    systemctl poweroff
+
+XF86PowerOff;XF86PowerOff;XF86Launch1
+    systemctl reboot
+
+mod3 + b
+    window_toggle.sh

@@ -1,0 +1,45 @@
+#!/bin/sh
+# Display the average CPU load.
+
+# Get current CPU times
+cpu_info=$(grep 'cpu ' /proc/stat)
+idle_time=$(echo "$cpu_info" | awk '{print $5}')
+total_time=$(echo "$cpu_info" | awk '{print $2+$3+$4+$5+$6+$7+$8+$9+$10}')
+
+# Get previous CPU times (if available)
+if [ -f /tmp/cpu_prev_idle ] && [ -f /tmp/cpu_prev_total ]; then
+    prev_idle=$(cat /tmp/cpu_prev_idle)
+    prev_total=$(cat /tmp/cpu_prev_total)
+
+    # Calculate CPU usage
+    idle_delta=$((idle_time - prev_idle))
+    total_delta=$((total_time - prev_total))
+
+    if [ "$total_delta" -gt 0 ]; then
+        cpu_usage=$(( (100 * (total_delta - idle_delta) / total_delta) ))
+        load="${cpu_usage}%"
+    else
+        load="CPU: --%" # Handle division by zero
+    fi
+else
+    echo "CPU: --%" # No previous data yet
+fi
+
+# Store current CPU times for next iteration
+echo "$idle_time" > /tmp/cpu_prev_idle
+echo "$total_time" > /tmp/cpu_prev_total
+
+case "$BLOCK_BUTTON" in
+    6) terminal -e "$EDITOR" "$0" ;;
+esac
+
+THRESHOLD=5
+
+load=$(cut -d' ' -f1 /proc/loadavg)
+
+is_threshold_exceeded="$(echo "$load > $THRESHOLD" | bc)"
+[ "$is_threshold_exceeded" -eq 1 ] && color=9
+
+. sb-theme
+display " $load" "$color"
+top -bn1 | grep Cpu | awk '{print $2}'

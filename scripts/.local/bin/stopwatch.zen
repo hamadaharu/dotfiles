@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# --- Simpan Process ID (PID) script ini ---
+MAIN_PID=$$
+
+# --- State Management ---
+s=0
+running=1 # 1 = Play, 0 = Pause
+
+# --- Tangkap Sinyal (Event Listener) ---
+# SIGUSR1 (Dari Klik Kiri): Toggle Pause/Play
+trap 'running=$((1 - running))' SIGUSR1
+
+# SIGUSR2 (Dari Klik Tengah): Reset ke 0
+trap 's=0' SIGUSR2
+
+trap "echo $$" SIGHUP
+
+# --- Konfigurasi Tampilan & Posisi ---
+WIDTH=125
+HEIGHT=30
+MARGIN=20
+FONT='UbuntuMono Nerd Font:size=13'
+RESOLUTION=$(xrandr | grep '\*' | head -n 1 | awk '{print $1}')
+SCREEN_WIDTH=$(echo $RESOLUTION | cut -d 'x' -f 1)
+SCREEN_HEIGHT=$(echo $RESOLUTION | cut -d 'x' -f 2)
+
+X_POS=$((SCREEN_WIDTH - WIDTH - MARGIN))
+Y_POS=$((SCREEN_HEIGHT - HEIGHT - MARGIN))
+
+# --- Mapping Tombol Mouse ---
+# button1 = Kiri   -> Tembak SIGUSR1 (Pause/Play)
+# button2 = Tengah -> Tembak SIGUSR2 (Reset)
+# button3 = Kanan  -> Tutup dzen2 (Exit)
+EVENTS="button1=exec:kill -USR1 $MAIN_PID;button2=exec:kill -USR2 $MAIN_PID;button3=exit"
+
+# --- Main Loop ---
+exec > >(dzen2 -p -title-name "dzen_stopwatch" -w $WIDTH -h $HEIGHT -x $X_POS -y $Y_POS -bg "#222222" -fg "#eeeeee" -fn "$FONT" -ta c -e "$EVENTS")
+
+while true; do
+  if [[ $running -eq 1 ]]; then
+    # Tampilan saat Play (Warna Hijau)
+    printf "^fg(#98c379) ^fg() %02d:%02d:%02d\n" $((s/3600)) $(((s/60)%60)) $((s%60))
+    sleep 1
+    
+    # Cek lagi state-nya, mencegah nambah detik kalau tiba-tiba dipause pas lagi sleep
+    if [[ $running -eq 1 ]]; then
+      ((s++))
+    fi
+  else
+    # Tampilan saat Pause (Warna Merah/Pink)
+    printf "^fg(#e06c75) ^fg() %02d:%02d:%02d\n" $((s/3200)) $(((s/60)%60)) $((s%60))
+    sleep 0.5 # Refresh lebih cepat saat pause agar responsif saat di-play lagi
+  fi
+done

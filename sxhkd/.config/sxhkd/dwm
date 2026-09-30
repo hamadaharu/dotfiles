@@ -1,0 +1,70 @@
+# #######################
+# dwm hotkeys
+# #######################
+
+# Restart dwm (broken use the config.h instead)
+# super + shift + r
+#     dwmc self_restart
+
+# Refresh Xrdb
+# super + shift + F5  
+#     xrdb merge ~/.Xresources && dwmc xrdb && kill -USR1 $(pidof st)
+super + shift + F5  
+    dwmc xrdb && kill -USR1 $(pidof st)
+
+# #######################
+# Volume / Brightness
+# #######################
+
+super + F12 
+    amixer set Master toggle ; kill -39 $(pidof dwmblocks)
+
+super + {_,alt + } F1
+    amixer -q set Master {2,10}%- ; kill -39 $(pidof dwmblocks)
+
+super + {_,alt + } F2
+    amixer -q set Master {2,10}%+ ; kill -39 $(pidof dwmblocks)
+
+super + {_,alt + } F3
+    brightnessctl set {2,10}%- ; kill -39 $(pidof dwmblocks)
+
+super + {_,alt + } F4
+    brightnessctl set {2,10}%+ ; kill -39 $(pidof dwmblocks)
+
+# #######################
+# Media Control 
+# #######################
+super + Up 
+    playerctl play-pause
+
+super + Down
+    playerctl stop
+
+super + Left
+    playerctl previous
+
+super + Right
+    playerctl next
+
+# #######################
+# Power Man
+# #######################
+super + F11; {e, s, r, shift + s, h, l}
+    dpm {exit,suspend,reboot,shutdown,hibernate,lock}
+
+# #######################
+# Aplications
+# #######################
+super + shift + e 
+    pcmanfm
+
+super + i
+    networkmanager_dmenu
+# super + i; {r,c,d}
+#     { \
+#         nmcli device wifi rescan, \
+#         kitty --class wifi-term --execute connect_wifi.sh, \
+#         nmcli device disconnect wlp2s0 \
+#     }
+
+

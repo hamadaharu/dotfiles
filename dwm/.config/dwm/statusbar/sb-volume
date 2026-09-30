@@ -1,0 +1,46 @@
+#!/bin/sh
+# Display volume levels.
+
+wpctl() {
+    arg="$2"
+
+    set -- "$1"
+    if [ "$1" = set-volume ]; then
+        set -- "$@" --limit=1.0
+    fi
+
+    set -- "$@" @DEFAULT_AUDIO_SINK@ "$arg"
+
+    command wpctl "$@"
+}
+
+case "$BLOCK_BUTTON" in
+    1) setsid --fork terminal -e pulsemixer ;;
+    2) amixer set Master toggle ;;
+    4) amixer set Master 3%+ ;;
+    5) amixer set Master 3%- ;;
+    6) terminal -e "$EDITOR" "$0" ;;
+esac
+
+. sb-theme
+if amixer sget Master | grep -q "\[off\]"; then
+    display "  " 9
+    exit
+fi
+
+volume_frac="$(wpctl get-volume | cut -d' ' -f2)"
+volume="$(amixer sget Master | grep "Left:" | awk -F"[]%[]" '{print $2}')"
+
+if [ -z "$volume" ]; then
+    exit 1
+fi
+
+if [ "$volume" -gt 40 ]; then
+    icon=" "
+elif [ "$volume" -gt 15 ]; then
+    icon=" "
+else
+    icon=" "
+fi
+
+display " $icon$volume%" "1"

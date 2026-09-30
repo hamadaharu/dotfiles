@@ -1,0 +1,64 @@
+#!/bin/bash
+
+ACTION=$1
+MAC=$2
+
+adb-connect-blue()
+{
+    echo "⏳ Menunggu Bluetooth mendapatkan IP..."
+    BT_IP=$(ip route show | grep -E "enp0s|bnep" | awk '/default / {print $3}' | head -n 1)
+    
+    if [ -z "$BT_IP" ]; then
+        echo "❌ Gagal mendapatkan IP Bluetooth Gateway. Pastikan Tethering aktif."
+        return 1
+    fi
+    
+    echo "🔗 Menghubungkan ke Bluetooth IP: $BT_IP"
+    adb connect "$BT_IP:5555"
+}
+
+blue-wifi(){
+    BT_IP=$(ip route show | grep -E "enp0s|bnep" | awk '/default / {print $3}' | head -n 1)
+    
+    echo "🔎 Mencari IP WiFi Android via $BT_IP..."
+    IP_ANDROID=$(adb -s "$BT_IP:5555" shell ip -f inet addr show wlan0 | grep 'inet ' | awk '{print $2}' | cut -d "/" -f1)
+    
+    if [ -z "$IP_ANDROID" ]; then
+        echo "❌ Gagal mendapatkan IP WiFi Android."
+        return 1
+    fi
+
+    echo "🌐 IP WiFi ditemukan: $IP_ANDROID"
+    echo "🚀 Berpindah ke jalur WiFi dan memutus Bluetooth..."
+    
+    adb disconnect "$BT_IP:5555" > /dev/null
+    adb connect "$IP_ANDROID:5555"
+    nmcli device disconnect "$MAC" > /dev/null
+}
+
+case "$ACTION" in
+    connect) 
+        if [[ -z $MAC ]]; then echo "Error: Butuh MAC Address"; exit 1; fi
+        nmcli device connect "$MAC" && adb-connect-blue
+    ;;
+    connect-wifi) 
+        if [[ -z $MAC ]]; then echo "Error: Butuh MAC Address"; exit 1; fi
+        nmcli device connect "$MAC" && adb-connect-blue && blue-wifi
+    ;;
+    *) 
+        echo "📖 HOW TO USE - ADB BLUETOOTH TOOL"
+        echo "----------------------------------"
+        echo "Script ini menghubungkan ADB via Bluetooth Tethering, lalu opsional"
+        echo "berpindah ke koneksi WiFi agar lebih cepat."
+        echo ""
+        echo "Perintah:"
+        echo "  connect      : Hanya konek via Bluetooth (Tethering harus ON)."
+        echo "  connect-wifi : Konek via Bluetooth, ambil IP WiFi, lalu pindah jalur."
+        echo ""
+        echo "Parameter:"
+        echo "  MAC_ADDRESS  : MAC Bluetooth HP Anda (Cek pakai: bluetoothctl devices)"
+        echo ""
+        echo "Contoh:"
+        echo "  ./adbblue.sh connect-wifi 00:11:22:33:44:55"
+    ;;
+esac

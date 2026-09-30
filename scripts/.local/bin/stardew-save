@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# export SV_SAVE="Mozup_412710387"
+export SV_SAVE=$2
+
+export DESKTOP_SV="$HOME/.wine/drive_c/users/zan/AppData/Roaming/StardewValley/Saves/$SV_SAVE"
+export ANDROID_SV="storage/emulated/0/Android/data/com.chucklefish.stardewvalley/files/Saves/$SV_SAVE"
+
+LS_DIR_ANDROID="$(adb shell ls $ANDROID_SV 2>&1)"
+LS_DIR_DESKTOP="$(ls $DESKTOP_SV 2>&1)"
+
+check() {
+    if [[ -z $SV_SAVE ]]; then
+        echo "== ! stardewsave: missing save name argument ! =="
+        exit 1
+    fi
+}
+
+push() {
+    check
+    if [[ $LS_DIR_ANDROID =~ (No such) ]]; then
+        echo "There's no save folder in android dir, creating ... Done"
+        adb shell mkdir -p $ANDROID_SV
+    fi
+    adb shell rm "$ANDROID_SV/*" &>/dev/null
+    adb push $DESKTOP_SV/* $ANDROID_SV || exit 2
+    echo "Stardew Valley Save Game has been pushed to the Android"
+}
+
+pull() {
+    check
+    if [[ $LS_DIR_DESKTOP =~ (No such) ]]; then
+        echo "There's no save folder in desktop dir, creating ... Done"
+        mkdir -p $DESKTOP_SV
+    fi
+
+    (adb shell ls "$ANDROID_SV/*" -d || exit 2) | while read line; do
+        adb pull $line $DESKTOP_SV
+    done
+    
+    echo "Stardew Valley Save Game has been pulled to the Desktop."
+}
+
+case "$1" in
+    push)
+        push
+        ;;
+    pull)
+        pull
+        ;;
+    *)
+        echo "== ! stardewsave: missing or invalid argument ! =="
+        echo "Try again with: push | pull "
+        exit 2
+esac
+
+exit 0

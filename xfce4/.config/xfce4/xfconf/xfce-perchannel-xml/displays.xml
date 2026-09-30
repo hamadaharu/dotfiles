@@ -1,0 +1,57 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="displays" version="1.0">
+  <property name="ActiveProfile" type="string" value="Default"/>
+  <property name="Notify" type="int" value="1"/>
+  <property name="AutoEnableProfiles" type="int" value="0"/>
+  <property name="IdentityPopups" type="bool" value="false"/>
+  <property name="98c03bd4-9b48-45ca-bbfa-1837a23f8742" type="string" value="TVUMC">
+    <property name="LVDS" type="string" value="Laptop">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="eed633f29575e1bc94778e3284e1d4bb30946d8b"/>
+      <property name="Resolution" type="string" value="1366x768"/>
+      <property name="RefreshRate" type="double" value="59.996023120753136"/>
+      <property name="ModeFlags" type="uint64" value="10"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="true"/>
+      <property name="Scale" type="double" value="1"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="HDMI-A-0" type="string" value="Anderson Multimedia Communications (HK) Limited 52&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="d4df230d2bc61ac7e38b2259bad76162bb9bef49"/>
+      <property name="Resolution" type="string" value="1280x720"/>
+      <property name="RefreshRate" type="double" value="60"/>
+      <property name="ModeFlags" type="uint64" value="5"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Scale" type="double" value="1"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+  </property>
+  <property name="Default" type="empty">
+    <property name="LVDS" type="string" value="Laptop">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="eed633f29575e1bc94778e3284e1d4bb30946d8b"/>
+      <property name="Resolution" type="string" value="1366x768"/>
+      <property name="RefreshRate" type="double" value="59.996023120753136"/>
+      <property name="ModeFlags" type="uint64" value="10"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Scale" type="double" value="1"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+  </property>
+</channel>

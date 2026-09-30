@@ -1,0 +1,8 @@
+#!/bin/sh
+
+dwm_bin_dir="$HOME/.config/dwm/statusbar"
+export PATH="$dwm_bin_dir:$PATH"
+export STATUSBAR="statuscolors"
+
+#start dwmtatus e.g. dwmblocks
+pkill -x dwmblocks; dwmblocks

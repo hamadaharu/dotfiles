@@ -1,0 +1,45 @@
+
+
+X.Org X Server 1.21.1.18
+X Protocol Version 11, Revision 0
+Current Operating System: Linux AxmaA 6.15.9-2-MANJARO #1 SMP PREEMPT_DYNAMIC Thu, 07 Aug 2025 04:47:58 +0000 x86_64
+Kernel command line: BOOT_IMAGE=/boot/vmlinuz-6.15-x86_64 root=UUID=fe2b3d42-e287-4412-a6b5-a0579a5a6962 rw quiet apparmor=1 security=apparmor resume=UUID=45842680-ffcf-4147-a96b-6f351d416ff3 udev.log_priority=3
+ 
+Current version of pixman: 0.46.4
+	Before reporting problems, check http://wiki.x.org
+	to make sure that you have the latest version.
+Markers: (--) probed, (**) from config file, (==) default setting,
+	(++) from command line, (!!) notice, (II) informational,
+	(WW) warning, (EE) error, (NI) not implemented, (??) unknown.
+(==) Log file: "/home/zan/.local/share/xorg/Xorg.0.log", Time: Wed Sep  3 12:54:56 2025
+(==) Using config directory: "/etc/X11/xorg.conf.d"
+(==) Using system config directory "/usr/share/X11/xorg.conf.d"
+xf86EnableIO: failed to enable I/O ports 0000-03ff (Operation not permitted)
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Could not resolve keysym XF86RefreshRateToggle
+> Warning:          Could not resolve keysym XF86Accessibility
+> Warning:          Could not resolve keysym XF86DoNotDisturb
+Errors from xkbcomp are not fatal to the X server
+xrdb:  "*foreground" on line 56 overrides entry on line 18
+xrdb:  "*cursorColor" on line 57 overrides entry on line 21
+xrdb:  "*color0" on line 59 overrides entry on line 25
+xrdb:  "*color8" on line 60 overrides entry on line 41
+xrdb:  "*color1" on line 62 overrides entry on line 27
+xrdb:  "*color9" on line 63 overrides entry on line 43
+xrdb:  "*color2" on line 65 overrides entry on line 29
+xrdb:  "*color10" on line 66 overrides entry on line 45
+xrdb:  "*color3" on line 68 overrides entry on line 31
+xrdb:  "*color11" on line 69 overrides entry on line 47
+xrdb:  "*color4" on line 72 overrides entry on line 33
+xrdb:  "*color12" on line 73 overrides entry on line 49
+xrdb:  "*color5" on line 75 overrides entry on line 35
+xrdb:  "*color13" on line 76 overrides entry on line 51
+xrdb:  "*color6" on line 78 overrides entry on line 37
+xrdb:  "*color14" on line 79 overrides entry on line 53
+xrdb:  "*color7" on line 81 overrides entry on line 39
+xrdb:  "*color15" on line 82 overrides entry on line 55
+Couldn't exec bspwm-session: No such file or directory
+xinit: connection to X server lost
+
+waiting for X server to shut down (II) Server terminated successfully (0). Closing log file.
+

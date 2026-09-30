@@ -1,0 +1,6 @@
+#!/bin/bash
+tmux new -s floater -n music -d 
+tmux neww -n scrcpy -t floater
+tmux neww -n any -t floater
+tmux selectw -t floater:1 
+tmux attach -t floater

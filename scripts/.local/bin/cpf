@@ -1,0 +1,3 @@
+#!/bin/bash
+FILE=$1
+xclip -t text/uri-list -selection clipboard <(echo -en "file://$(realpath "$FILE")")

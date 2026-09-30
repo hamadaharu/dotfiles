@@ -1,0 +1,8 @@
+#!/bin/bash
+WIDTH=$(xdotool getactivewindow getwindowgeometry --shell | grep WIDTH | cut -d"=" -f2)
+HEIGHT=$(xdotool getactivewindow getwindowgeometry --shell | grep HEIGHT | cut -d"=" -f2)
+RESOLUSI=$(xrandr --current | grep '*' | head -1 | awk '{print $1}')
+SCREEN_WIDTH=$(echo $RESOLUSI | cut -dx -f1)
+SCREEN_HEIGHT=$(echo $RESOLUSI | cut -dx -f2)
+
+xdotool getactivewindow windowmove $(($SCREEN_WIDTH/2 - $WIDTH/2)) $(($SCREEN_HEIGHT/2 - $HEIGHT/2))

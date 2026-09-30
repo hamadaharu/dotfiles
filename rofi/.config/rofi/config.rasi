@@ -1,0 +1,131 @@
+@theme "./themes/squared-everforest.rasi"
+
+* {
+    font:   "UbuntuMono\ Nerd\ Font\ Propo 14";
+
+    bg0:     #111929;
+    bg1:     #233354;
+    fg0:     #e6eaf2;
+    fg1:     #c1c3c6;
+
+    accent-color:     #3876b5;
+    urgent-color:     #DBBC7F;
+
+    background-color:   transparent;
+    text-color:         @fg0;
+
+    margin:     0;
+    padding:    0;
+    spacing:    0;
+}
+
+window {
+  // border: 0px;
+  border-color: @accent-color;
+  location : north;
+  y-offset : calc(25%);
+  // border-radius: 0px;
+}
+
+prompt {
+  enabled: true;
+}
+
+entry {
+  placeholder: "Search App's";
+  placeholder-color: @fg1;
+}
+
+listview {
+}
+
+element-icon {
+  size: 1.5em;
+}
+
+elemet-text {
+    font:   "Monospace 25";
+}
+
+configuration {
+//	modes: "window,drun,run,ssh";
+//	font: "mono 12";
+//	location: 0;
+//	yoffset: 0;
+//	xoffset: 0;
+//	fixed-num-lines: true;
+	show-icons: true;
+//	terminal: "rofi-sensible-terminal";
+//	ssh-client: "ssh";
+//	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
+	run-command: "env SAL_USE_VCLPLUGIN=qt5 {cmd}";
+//	run-list-command: "";
+//	run-shell-command: "{terminal} -e {cmd}";
+//	window-command: "wmctrl -i -R {window}";
+//	window-match-fields: "all";
+//	icon-theme: ;
+//	drun-match-fields: "name,generic,exec,categories,keywords";
+//	drun-categories: ;
+//	drun-show-actions: false;
+//	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
+//	drun-url-launcher: "xdg-open";
+	disable-history: true;
+//	ignored-prefixes: "";
+//  sort: false;
+	sorting-method: "fzf";
+//	case-sensitive: false;
+//	cycle: true;
+//	sidebar-mode: false;
+//	hover-select: false;
+//	eh: 1;
+//	auto-select: false;
+//	parse-hosts: false;
+//	parse-known-hosts: true;
+//	combi-modes: "window,run";
+//	matching: "normal";
+//	tokenize: true;
+//	m: "-5";
+//	filter: ;
+//	dpi: -1;
+//	threads: 0;
+//	scroll-method: 0;
+//	window-format: "{w}    {c}   {t}";
+//	click-to-exit: true;
+	max-history-size: 12;
+//	combi-hide-mode-prefix: false;
+//	combi-display-format: "{mode} {text}";
+//	matching-negate-char: '-' /* unsupported */;
+//	cache-dir: ;
+//	window-thumbnail: false;
+	drun-use-desktop-cache: true;
+//	drun-reload-desktop-cache: false;
+//	normalize-match: false;
+//	steal-focus: false;
+//	application-fallback-icon: ;
+//	refilter-timeout-limit: 8192;
+//	xserver-i300-workaround: false;
+//	pid: "/run/user/1000/rofi.pid";
+//	display-window: ;
+//	display-windowcd: ;
+  display-run: "";
+//	display-ssh: ;
+  display-drun: "";
+//	display-combi: ;
+//	display-keys: ;
+//	display-filebrowser: ;
+//	ml-row-left: "ScrollLeft";
+//	ml-row-right: "ScrollRight";
+//	ml-row-up: "ScrollUp";
+//	ml-row-down: "ScrollDown";
+//	me-select-entry: "MousePrimary";
+//	me-accept-entry: "MouseDPrimary";
+//	me-accept-custom: "Control+MouseDPrimary";
+  timeout {
+      action: "kb-cancel";
+      delay:  0;
+  }
+  filebrowser {
+      directories-first: true;
+      sorting-method:    "name";
+  }
+}

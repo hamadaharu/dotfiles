@@ -1,0 +1,23 @@
+# activation_key: A-p
+
+hint_font: Arial
+hint_size: 25
+
+cursor_color: #008499
+cursor_size: 10
+normal_system_cursor: 1
+exit: A-j
+screen: p
+
+left: h
+down: j
+up: k
+right: l
+
+left: a
+down: s
+up: w
+right: d
+
+buttons: m , .
+buttons: q f c

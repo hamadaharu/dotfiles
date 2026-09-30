@@ -1,0 +1,6 @@
+#/bin/bash!
+tmux renamew git
+clear 
+tmux neww -n code
+clear
+tmux neww -d -n shell
